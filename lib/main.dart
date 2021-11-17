@@ -1,4 +1,4 @@
-import 'package:dyte_flutter_sample_app/home_page.dart';
+import 'package:dyte_flutter_sample_app/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

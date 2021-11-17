@@ -1,32 +1,33 @@
+import 'package:dyte_flutter_sample_app/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:dyte_flutter_sample_app/screens/create_meeting.dart';
+import 'package:dyte_flutter_sample_app/screens/join_meeting.dart';
 
-class GroupCall extends StatefulWidget {
-  const GroupCall({Key? key, required this.title}) : super(key: key);
+class BasePage extends StatefulWidget {
+    const BasePage({Key? key, required this.title, required this.mode}) : super(key: key);
 
   final String title;
+  final Mode mode;
 
   @override
-  _GroupCallState createState() => _GroupCallState();
+  _BasePageState createState() => _BasePageState();
 }
 
-class _GroupCallState extends State<GroupCall> {
+class _BasePageState extends State<BasePage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Create Meeting',
-        style: TextStyle(
-          fontSize: 35,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        )),
-    Text('Join Meeting',
-        style: TextStyle(
-          fontSize: 35,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        )),
-  ];
+  late List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    _widgetOptions = <Widget>[
+        CreateMeeting(mode: widget.mode),
+        JoinMeeting(mode: widget.mode),
+    ];
+
+  }
 
   void _onTappedItem(int index) {
     setState(() {

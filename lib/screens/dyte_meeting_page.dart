@@ -20,6 +20,7 @@ class DyteMeetingPage extends StatefulWidget {
   _DyteMeetingPageState createState() => _DyteMeetingPageState();
 }
 
+//Quickstart on usage of SDK: https://docs.dyte.io/flutter/quickstart
 class _DyteMeetingPageState extends State<DyteMeetingPage> {
   @override
   Widget build(BuildContext context) {
@@ -27,46 +28,50 @@ class _DyteMeetingPageState extends State<DyteMeetingPage> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Colors.blue,
       body: Row(
         children: <Widget>[
           SizedBox(
-              width: width,
-              height: height,
-              child: DyteMeeting(
-                roomName: widget.roomName,
-                authToken: widget.authToken,
-                onInit: (DyteMeetingHandler meeting) async {
-                  if (widget.mode == Mode.customControls) {
-                    /* meeting.updateUIConfig({'controlBar': false}); */
-                  }
+            width: width,
+            height: height,
+            child: DyteMeeting(
+              roomName: widget.roomName,
+              authToken: widget.authToken,
+              onInit: (DyteMeetingHandler meeting) async {
+                if (widget.mode == Mode.customControls) {
+                  //Here we are trying to change meeting's UI check this page for detailed documentation: https://docs.dyte.io/flutter/customize-meeting-ui and https://docs.dyte.io/flutter/advanced-usage
+                  /* meeting.updateUIConfig({'controlBar': false}); */
+                }
 
-                  meeting.events.on('meetingConnected', this, (ev, cont) {
-                    print("Meeting Connected");
-                  });
+                //Event callbacks, refer: https://docs.dyte.io/flutter/events/
+                meeting.events.on('meetingConnected', this, (ev, cont) {
+                  print("Meeting Connected");
+                });
 
-                  meeting.events.on('meetingJoin', this, (ev, cont) {
-                    print("Meeting Join");
-                  });
+                meeting.events.on('meetingJoin', this, (ev, cont) {
+                  print("Meeting Join");
+                });
 
-                  meeting.events.on('meetingDisconnected', this, (ev, cont) {
-                    print("Meeting Disconnected");
-                  });
+                meeting.events.on('meetingDisconnected', this, (ev, cont) {
+                  print("Meeting Disconnected");
+                });
 
-                  meeting.events.on('meetingEnd', this, (ev, cont) {
-                    Navigator.of(context).pop();
-                    print("Meeting ended");
-                  });
+                meeting.events.on('meetingEnd', this, (ev, cont) {
+                  Navigator.of(context).pop();
+                  print("Meeting ended");
+                });
 
-                  meeting.events.on('participantJoin', this, (ev, cont) {
-                    DyteParticipant p = ev.eventData as DyteParticipant;
-                    print("Participant ${p.name} joined");
-                  });
-                  meeting.events.on('participantLeave', this, (ev, cont) {
-                    DyteParticipant p = ev.eventData as DyteParticipant;
-                    print("Participant ${p.name} left");
-                  });
-                },
-              ))
+                meeting.events.on('participantJoin', this, (ev, cont) {
+                  DyteParticipant p = ev.eventData as DyteParticipant;
+                  print("Participant ${p.name} joined");
+                });
+                meeting.events.on('participantLeave', this, (ev, cont) {
+                  DyteParticipant p = ev.eventData as DyteParticipant;
+                  print("Participant ${p.name} left");
+                });
+              },
+            ),
+          )
         ],
       ),
     );

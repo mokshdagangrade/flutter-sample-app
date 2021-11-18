@@ -16,7 +16,7 @@ class JoinMeeting extends StatefulWidget {
   _JoinMeetingState createState() => _JoinMeetingState();
 }
 
-//TODO: Add search functionality
+//This houses code for join meeting, when you click on a meeting, it asks for a name and makes a call to backend with participant create request, we recieve an authToken from that and we already have roomName which is passed to the sdk to start the meeting
 class _JoinMeetingState extends State<JoinMeeting> {
   int meetingCount = 0;
   List<Meeting> meetings = [];
@@ -49,6 +49,27 @@ class _JoinMeetingState extends State<JoinMeeting> {
     }
   }
 
+  void _handleSearchChange() {
+    var searchTerm = _searchController.text.trim();
+    if (searchTerm == "") {
+      setState(() {
+        isSearching = false;
+      });
+    } else {
+      setState(() {
+        isSearching = true;
+        filteredMeetings = [];
+      });
+      for (var i = 0; i < meetings.length; i++) {
+        var meeting = meetings[i];
+        if (meeting.title!.toLowerCase().contains(searchTerm.toLowerCase())) {
+          filteredMeetings.add(meeting);
+        }
+      }
+      setState(() {});
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -56,33 +77,21 @@ class _JoinMeetingState extends State<JoinMeeting> {
     _nameController.addListener(() {
       participantName = _nameController.text.trim();
     });
-    _searchController.addListener(() {
-      var searchTerm = _searchController.text.trim();
-      if (searchTerm == "") {
-        setState(() {
-          isSearching = false;
-        });
-      } else {
-        setState(() {
-          isSearching = true;
-          filteredMeetings = [];
-        });
-        for (var i = 0; i < meetings.length; i++) {
-          var meeting = meetings[i];
-          if (meeting.title!.toLowerCase().contains(searchTerm.toLowerCase())) {
-            filteredMeetings.add(meeting);
-          }
-        }
-        setState(() {});
-      }
-    });
+    _searchController.addListener(_handleSearchChange);
   }
 
-  Future<void> _joinRoom(Meeting meeting, bool isHost) async {
-    /* Navigator.of(context).pop(); */
+  Future<void> _joinRoom(
+      Meeting meeting, bool isHost, Function setState) async {
     try {
-      var authToken = await DyteAPI.joinRoom(meeting, isHost,
+      setState(() {
+        isLoading = true;
+      });
+      //Note usage of mode here
+      var authToken = await DyteAPI.createParticipant(meeting, isHost,
           widget.mode == Mode.webinar ? true : false, participantName);
+      setState(() {
+        isLoading = false;
+      });
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -104,33 +113,45 @@ class _JoinMeetingState extends State<JoinMeeting> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return SimpleDialog(
-          title: Text('Join ${meeting.roomName} as'),
-          children: <Widget>[
-            Container(
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-              child: TextField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your name',
-                ),
-              ),
-            ),
-            SimpleDialogOption(
-              child: const Text('Host'),
-              onPressed: () {
-                _joinRoom(meeting, true);
-              },
-            ),
-            SimpleDialogOption(
-              child: const Text('Participant'),
-              onPressed: () {
-                _joinRoom(meeting, false);
-              },
-            ),
-          ],
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return SimpleDialog(
+              title: Text('Join ${meeting.roomName} as'),
+              children: !isLoading
+                  ? <Widget>[
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 6.0),
+                        child: TextField(
+                          controller: _nameController,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter your name',
+                          ),
+                        ),
+                      ),
+                      SimpleDialogOption(
+                        child: const Text('Host'),
+                        onPressed: () {
+                          _joinRoom(meeting, true, setState);
+                        },
+                      ),
+                      SimpleDialogOption(
+                        child: const Text('Participant'),
+                        onPressed: () {
+                          _joinRoom(meeting, false, setState);
+                        },
+                      ),
+                    ]
+                  : <Widget>[
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    ],
+            );
+          },
         );
       },
     );
@@ -151,10 +172,11 @@ class _JoinMeetingState extends State<JoinMeeting> {
                                 itemCount: filteredMeetings.length,
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
-                                    onTap: () {
-                                      _showMeetingDialog(
+                                    onTap: () async {
+                                      await _showMeetingDialog(
                                         filteredMeetings[index],
                                       );
+                                      Navigator.of(context).pop();
                                     },
                                     child: ListTile(
                                       title: Text(
@@ -169,10 +191,11 @@ class _JoinMeetingState extends State<JoinMeeting> {
                                 itemCount: meetingCount,
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
-                                    onTap: () {
-                                      _showMeetingDialog(
+                                    onTap: () async {
+                                      await _showMeetingDialog(
                                         meetings[index],
                                       );
+                                      Navigator.of(context).pop();
                                     },
                                     child: ListTile(
                                       title: Text("${meetings[index].title}",

@@ -1,20 +1,4 @@
-class CreateMeetingRequest {
-  late String title;
-  late String presetName;
-  late CreateMeetingRequestAuthorization authorization;
-
-  /* CreateMeetingRequest({ */
-  /*   @required this.title, */
-  /*   @required this.presetName, */
-  /*   @required this.authorization, */
-  /* }); */
-}
-
-class CreateMeetingRequestAuthorization {
-  late bool waitingRoom;
-  late bool close;
-}
-
+//Internal representation for a meeting
 class Meeting {
   String? id;
   String? title;

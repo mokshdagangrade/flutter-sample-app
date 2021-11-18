@@ -5,6 +5,10 @@ void main() {
   runApp(const DyteSampleApp());
 }
 
+//This is a sample app showcasing usage of dyte flutter sdk
+//To install the sdk: https://docs.dyte.io/flutter/installation
+//And getting quickstarted on it: https://docs.dyte.io/flutter/quickstart
+//If you want to see SDK usage directly you can check file: lib/screens/dyte_meeting_page.dart
 class DyteSampleApp extends StatelessWidget {
   const DyteSampleApp({Key? key}) : super(key: key);
 

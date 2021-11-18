@@ -16,6 +16,8 @@ class CreateMeeting extends StatefulWidget {
   _CreateMeetingState createState() => _CreateMeetingState();
 }
 
+//CreateMeeting houses the code to create a new meeting, here we are using mode in joinRoom part to make a distinction between webinar and normal call.
+//This houses the same call as join meeting as firstly meeting is created using DyteAPI's createMeeting call and then we follow the same process as join meeting
 class _CreateMeetingState extends State<CreateMeeting> {
   String meetingTitle = "";
   String participantName = "";
@@ -38,10 +40,10 @@ class _CreateMeetingState extends State<CreateMeeting> {
     });
   }
 
-  Future<void> _joinRoom(Meeting meeting, bool isHost) async {
-    /* Navigator.of(context).pop(); */
+  Future<void> _joinRoom(Meeting meeting, bool isHost, Function setState) async {
     try {
-      var authToken = await DyteAPI.joinRoom(meeting, isHost,
+      //Note usage of mode here
+      var authToken = await DyteAPI.createParticipant(meeting, isHost,
           widget.mode == Mode.webinar ? true : false, participantName);
       Navigator.push(
         context,
@@ -57,7 +59,6 @@ class _CreateMeetingState extends State<CreateMeeting> {
         isErroredState = true;
         isLoading = false;
       });
-      Navigator.of(context).pop();
     }
   }
 
@@ -66,31 +67,45 @@ class _CreateMeetingState extends State<CreateMeeting> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return SimpleDialog(
-          title: Text('Join ${meeting.roomName} as'),
-          children: <Widget>[
-            Container(
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-              child: TextArea(
-                controller: _nameController,
-                description: "Enter your name",
-                textColor: Colors.black,
-              ),
-            ),
-            SimpleDialogOption(
-              child: const Text('Host'),
-              onPressed: () {
-                _joinRoom(meeting, true);
-              },
-            ),
-            SimpleDialogOption(
-              child: const Text('Participant'),
-              onPressed: () {
-                _joinRoom(meeting, false);
-              },
-            ),
-          ],
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return SimpleDialog(
+              title: Text('Join ${meeting.roomName} as'),
+              children: !isLoading
+                  ? <Widget>[
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 6.0),
+                        child: TextField(
+                          controller: _nameController,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter your name',
+                          ),
+                        ),
+                      ),
+                      SimpleDialogOption(
+                        child: const Text('Host'),
+                        onPressed: () {
+                          _joinRoom(meeting, true, setState);
+                        },
+                      ),
+                      SimpleDialogOption(
+                        child: const Text('Participant'),
+                        onPressed: () {
+                          _joinRoom(meeting, false, setState);
+                        },
+                      ),
+                    ]
+                  : <Widget>[
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    ],
+            );
+          },
         );
       },
     );
@@ -102,7 +117,8 @@ class _CreateMeetingState extends State<CreateMeeting> {
       const Text(
         "Enter meeting title",
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.blue,
+          fontSize: 21,
         ),
       ),
       TextArea(
@@ -116,6 +132,7 @@ class _CreateMeetingState extends State<CreateMeeting> {
           try {
             var meeting = await DyteAPI.createMeeting(meetingTitle);
             _showMeetingDialog(meeting);
+            Navigator.of(context).pop();
             setState(() {
               isLoading = false;
             });

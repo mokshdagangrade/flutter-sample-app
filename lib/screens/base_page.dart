@@ -14,6 +14,8 @@ class BasePage extends StatefulWidget {
   _BasePageState createState() => _BasePageState();
 }
 
+//This is the base page containing bottom navigation bar for holding creating meeting and join meeting screens
+//This, create meeting and join meeting page are same for all three buttons of home page, we distinguish only in particiular actions and that is done by passing the mode enum to subsequent pages
 class _BasePageState extends State<BasePage> {
   int _selectedIndex = 0;
 
@@ -49,12 +51,12 @@ class _BasePageState extends State<BasePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.video_call_sharp),
-            label: 'Create Meeting',
+            label: '',
             backgroundColor: Color(0xff2160fd),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.video_camera_front_sharp),
-            label: 'Join Meeting',
+            label: '',
             backgroundColor: Color(0xff2160fd),
           ),
         ],

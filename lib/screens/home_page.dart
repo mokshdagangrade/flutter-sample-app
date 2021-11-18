@@ -12,6 +12,7 @@ class DyteSampleHomePage extends StatefulWidget {
   State<DyteSampleHomePage> createState() => _DyteSampleHomePageState();
 }
 
+//This is the home page containing three buttons of group call, webinar and custom controls. It's a supporting file and contains no important logic code. For seeing create meeting and join meeting logic you can directly skip to the pages: lib/screens/create_meeting.dart and lib/screens/join_meeting.dart(If you are skipping to these files checkout mode enum here)
 class _DyteSampleHomePageState extends State<DyteSampleHomePage> {
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,7 @@ class _DyteSampleHomePageState extends State<DyteSampleHomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => BasePage(
+                              //Note: Check this mode
                               mode: Mode.groupCall,
                               title: '${widget.title} - Group Call')));
                 },
@@ -53,6 +55,7 @@ class _DyteSampleHomePageState extends State<DyteSampleHomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => BasePage(
+                              //Note: Check this mode
                               mode: Mode.webinar,
                               title: '${widget.title} - Webinar')));
                 },
@@ -70,6 +73,7 @@ class _DyteSampleHomePageState extends State<DyteSampleHomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => BasePage(
+                              //Note: Check this mode
                               mode: Mode.customControls,
                               title: '${widget.title} - Custom Controls')));
                 },

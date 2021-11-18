@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextArea extends StatelessWidget {
-   const TextArea({
+  const TextArea({
     Key? key,
     required this.controller,
     required this.description,
@@ -19,10 +19,12 @@ class TextArea extends StatelessWidget {
       child: TextField(
         controller: controller,
         style: TextStyle(
-          color: textColor??Colors.white,
+          color: textColor ?? Colors.white,
         ),
         decoration: InputDecoration(
-          border: const OutlineInputBorder(),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+          ),
           hintText: description,
         ),
       ),

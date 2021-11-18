@@ -6,16 +6,10 @@ import 'package:uuid/uuid.dart';
 import 'package:dyte_flutter_sample_app/models/models.dart';
 import 'package:dyte_flutter_sample_app/utils/exceptions.dart';
 
+//This is a custom API and may be replaced with anything satifying the needs
 class DyteAPI {
-  static makeCreateMeetingRequest(String title) {
-    /* Uri uri = Uri.parse(BaseHTTP.baseURL+"/create"); */
-    /* BaseHTTP.client.post(uri, body: { */
-    /*     "title": title, */
-    /*     "presetName" */
-    /* }); */
-  }
-
-  static Future<String> joinRoom(
+  //makes the particpant create request
+  static Future<String> createParticipant(
     Meeting meeting,
     bool isHost,
     bool isWebinar,
@@ -55,6 +49,7 @@ class DyteAPI {
     return authToken;
   }
 
+  //makes the meeting create request
   static Future<Meeting> createMeeting(String meetingTitle) async {
     var url = Uri.parse(Constants.baseURL + "/meeting/create");
     var response = await http.post(url,
@@ -81,6 +76,7 @@ class DyteAPI {
     return meeting;
   }
 
+  //makes the meeting list request
   static Future<List<Meeting>> getMeetings() async {
     var url = Uri.parse(Constants.baseURL + "/meetings/");
     var response = await http.get(url);

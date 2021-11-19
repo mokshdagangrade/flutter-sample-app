@@ -4,12 +4,12 @@
     <img src="https://dyte-uploads.s3.ap-south-1.amazonaws.com/dyte-logo-dark.svg" alt="Logo" width="80">
   </a>
 
-  <h2 align="center">docs-template by dyte</h3>
+  <h2 align="center">Flutter Sample App by dyte</h3>
 
   <p align="center">
-    ADD_DESCRIPTION_HERE
+   Sample App to demonstrate Dyte SDK in flutter
     <br />
-    <a href="https://docs.dyte.io"><strong>Explore the docs »</strong></a>
+    <a href="https://docs.dyte.io/flutter/quickstart"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://app.dyte.io">View Demo</a>
@@ -41,17 +41,15 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`docs-template`
-
 ### Built With
 
-- []()
-- []()
-- []()
+Primarily
+
+- Dyte Sdk
+- Flutter
+- http package
+- uuid package
+- :heart:
 
 <!-- GETTING STARTED -->
 
@@ -61,35 +59,26 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-
-- npm
-
-```sh
-npm install npm@latest -g
-```
+- A working backend that can connect to Dyte APIs
+  - This app currently connects to our sample backend implementation (https://github.com/dyte-in/sample-app-backend), currently hosted at https://dyte-sample.herokuapp.com - this can be grepped and replaced if you want it to work with your own backend implementation
 
 ### Installation
 
 1. Clone the repo
 
 ```sh
-git clone https://github.com/dyte-in/docs-template.git
+https://github.com/dyte-in/flutter-sample-app
 ```
 
-2. Install NPM packages
+2. Install packages
 
 ```sh
-npm install
+flutter pub get
 ```
 
-<!-- USAGE EXAMPLES -->
+#### Run
 
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)._
+`flutter run`
 
 <!-- CHANGELOG -->
 
@@ -97,23 +86,15 @@ _For more examples, please refer to the [Documentation](https://example.com)._
 
 See [CHANGELOG](./CHANGELOG.md).
 
-<!-- ROADMAP -->
-
-## Roadmap
-
-See the [open issues](https://github.com/dyte-in/docs-template/issues) for a list of proposed features (and known issues).
-
 <!-- CONTRIBUTING -->
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Sincere thanks to all [our contributors](Thank you, [contributors](https://github.com/dyte-in/docs-template/graphs/contributors)!)!
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Sincere thanks to all [our contributors](Thank you, [contributors](https://github.com/dyte-in/flutter-sample-app/graphs/contributors)!)!
 
 You are requested to follow the contribution guidelines specified in [CONTRIBUTING.md](./CONTRIBUTING.md) and code of conduct at [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) while contributing to the project :smile:.
 
 ## Support
-
-(Ask for support or sponsorships by providing links or just add a simple message)
 
 Contributions, issues, and feature requests are welcome!
 Give a ⭐️ if you like this project!
@@ -129,7 +110,7 @@ Distributed under the Apache License, Version 2.0. See [`LICENSE`](./LICENSE) fo
 
 ## About
 
-`docs-template` is created & maintained by Dyte, Inc. You can find us on Twitter - [@dyte_io](twitter.com/dyte_io) or write to us at `dev [at] dyte.io`.
+`flutter-sample-app` is created & maintained by Dyte, Inc. You can find us on Twitter - [@dyte_io](twitter.com/dyte_io) or write to us at `dev [at] dyte.io`.
 
 The names and logos for Dyte are trademarks of Dyte, Inc.
 

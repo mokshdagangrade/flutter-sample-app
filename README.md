@@ -29,9 +29,7 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Usage](#usage)
 - [Version History](#version-history)
-- [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
@@ -40,6 +38,8 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
+
+<img src="./static/ss-1.jpeg" width=175 height=400> <img src="./static/ss-2.jpeg" width=175 height=400> <img src="./static/ss-3.jpeg" width=175 height=400> <img src="./static/ss-4.jpeg" width=175 height=400>
 
 ### Built With
 
@@ -90,7 +90,7 @@ See [CHANGELOG](./CHANGELOG.md).
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Sincere thanks to all [our contributors](Thank you, [contributors](https://github.com/dyte-in/flutter-sample-app/graphs/contributors)!)!
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. Sincere thanks to all [our contributors](https://github.com/dyte-in/flutter-sample-app/graphs/contributors)!
 
 You are requested to follow the contribution guidelines specified in [CONTRIBUTING.md](./CONTRIBUTING.md) and code of conduct at [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) while contributing to the project :smile:.
 

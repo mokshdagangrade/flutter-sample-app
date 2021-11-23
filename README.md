@@ -45,10 +45,10 @@
 
 Primarily
 
-- Dyte Sdk
-- Flutter
-- http package
-- uuid package
+- [Dyte Sdk](https://pub.dev/packages/dyte_client)
+- [Flutter](https://flutter.dev/)
+- [http package](https://pub.dev/packages/http)
+- [uuid package](https://pub.dev/packages/uuid)
 - :heart:
 
 <!-- GETTING STARTED -->
@@ -58,6 +58,8 @@ Primarily
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
+
+- Flutter, installation and setup can be done from [here](https://docs.flutter.dev/get-started/install)
 
 - A working backend that can connect to Dyte APIs
   - This app currently connects to our sample backend implementation (https://github.com/dyte-in/sample-app-backend), currently hosted at https://dyte-sample.herokuapp.com - this can be grepped and replaced if you want it to work with your own backend implementation

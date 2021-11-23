@@ -22,7 +22,7 @@ class _JoinMeetingState extends State<JoinMeeting> {
   List<Meeting> meetings = [];
   List<Meeting> filteredMeetings = [];
 
-  bool isLoading = false;
+  bool isLoading = true;
   bool isErroredState = false;
   bool isSearching = false;
 
@@ -117,37 +117,67 @@ class _JoinMeetingState extends State<JoinMeeting> {
           builder: (context, setState) {
             return SimpleDialog(
               title: Text('Join ${meeting.roomName} as'),
-              children: !isLoading
-                  ? <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 6.0),
-                        child: TextField(
-                          controller: _nameController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter your name',
+              children: !isErroredState
+                  ? !isLoading
+                      ? <Widget>[
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 6.0),
+                            child: TextField(
+                              controller: _nameController,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Enter your name',
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      SimpleDialogOption(
-                        child: const Text('Host'),
-                        onPressed: () {
-                          _joinRoom(meeting, true, setState);
-                        },
-                      ),
-                      SimpleDialogOption(
-                        child: const Text('Participant'),
-                        onPressed: () {
-                          _joinRoom(meeting, false, setState);
-                        },
-                      ),
-                    ]
+                          SimpleDialogOption(
+                            /* child: const Text('Host'), */
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                primary: Colors.blue,
+                                textStyle: const TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              onPressed: () {
+                                _joinRoom(meeting, true, setState);
+                              },
+                              child: const Text(
+                                'Host',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            onPressed: () {},
+                          ),
+                          SimpleDialogOption(
+                            /* child: const Text('Participant'), */
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                primary: Colors.blue,
+                                textStyle: const TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              onPressed: () {
+                                _joinRoom(meeting, false, setState);
+                              },
+                              child: const Text(
+                                'Participant',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ]
+                      : <Widget>[
+                          const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ]
                   : <Widget>[
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        width: MediaQuery.of(context).size.width * 0.1,
-                        child: const CircularProgressIndicator(),
+                      const Center(
+                        child: Text('An error occurred!'),
                       ),
                     ],
             );
@@ -176,7 +206,6 @@ class _JoinMeetingState extends State<JoinMeeting> {
                                       await _showMeetingDialog(
                                         filteredMeetings[index],
                                       );
-                                      Navigator.of(context).pop();
                                     },
                                     child: ListTile(
                                       title: Text(
@@ -195,7 +224,6 @@ class _JoinMeetingState extends State<JoinMeeting> {
                                       await _showMeetingDialog(
                                         meetings[index],
                                       );
-                                      Navigator.of(context).pop();
                                     },
                                     child: ListTile(
                                       title: Text("${meetings[index].title}",

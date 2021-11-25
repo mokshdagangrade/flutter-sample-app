@@ -78,6 +78,36 @@ https://github.com/dyte-in/flutter-sample-app
 flutter pub get
 ```
 
+#### Setup on ios
+
+1. cd into `ios` folder 
+
+```
+cd ios
+```
+
+2. install pods 
+
+For intel macbook 
+
+```
+pod install
+```
+
+for m1 macbook 
+
+```
+arch -x86_64 pod install
+```
+
+**Note:** Make sure you are opening xcode using `Rosetta`
+
+#### Opening xcode using Rosetta 
+
+1. Go to Xcode Application 
+2. Right click on get info 
+3. check open using Rosetta
+
 #### Run
 
 `flutter run`

@@ -63,7 +63,7 @@ packages:
       name: dyte_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2"
+    version: "0.3.1"
   eventify:
     dependency: transitive
     description:

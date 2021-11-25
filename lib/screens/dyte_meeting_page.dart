@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:dyte_client/dyteMeeting.dart';
 import 'package:dyte_flutter_sample_app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,15 @@ class _DyteMeetingPageState extends State<DyteMeetingPage> {
             child: DyteMeeting(
               roomName: widget.roomName,
               authToken: widget.authToken,
+              uiConfig:{
+                  "header": false,
+                  "controlBarElements": {
+                    "polls": false,
+                    "chat": false,
+                    "plugins": false,
+                    "participants": false,
+                  }
+              },
               onInit: (DyteMeetingHandler meeting) async {
                 if (widget.mode == Mode.customControls) {
                   //Here we are trying to change meeting's UI check this page for detailed documentation: https://docs.dyte.io/flutter/customize-meeting-ui and https://docs.dyte.io/flutter/advanced-usage
@@ -49,7 +60,7 @@ class _DyteMeetingPageState extends State<DyteMeetingPage> {
                 });
 
                 meeting.events.on('meetingJoin', this, (ev, cont) {
-                  print("Meeting Join");
+                    print("Meeting Join");
                 });
 
                 meeting.events.on('meetingDisconnected', this, (ev, cont) {

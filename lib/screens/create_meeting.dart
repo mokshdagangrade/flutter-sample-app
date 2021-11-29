@@ -43,17 +43,23 @@ class _CreateMeetingState extends State<CreateMeeting> {
   Future<void> _joinRoom(
       Meeting meeting, bool isHost, Function setState) async {
     try {
+      setState(() {
+        isLoading = true;
+      });
       //Note usage of mode here
       var authToken = await DyteAPI.createParticipant(meeting, isHost,
           widget.mode == Mode.webinar ? true : false, participantName);
+      setState(() {
+        isLoading = false;
+      });
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => DyteMeetingPage(
-                  roomName: meeting.roomName!,
-                  authToken: authToken,
-                  mode: widget.mode,
-                )),
+              roomName: meeting.roomName!,
+              authToken: authToken,
+              mode: widget.mode,
+            )),
       );
     } on APIFailureException {
       setState(() {
@@ -96,7 +102,7 @@ class _CreateMeetingState extends State<CreateMeeting> {
                               },
                               child: const Text(
                                 'Host',
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
                             onPressed: () {},
@@ -153,15 +159,9 @@ class _CreateMeetingState extends State<CreateMeeting> {
           description: "Enter meeting title"),
       TextButton(
         onPressed: () async {
-          setState(() {
-            isLoading = true;
-          });
           try {
             var meeting = await DyteAPI.createMeeting(meetingTitle);
-            _showMeetingDialog(meeting);
-            setState(() {
-              isLoading = false;
-            });
+            await _showMeetingDialog(meeting);
           } on APIFailureException {
             setState(() {
               isLoading = false;

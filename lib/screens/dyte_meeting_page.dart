@@ -39,15 +39,6 @@ class _DyteMeetingPageState extends State<DyteMeetingPage> {
             child: DyteMeeting(
               roomName: widget.roomName,
               authToken: widget.authToken,
-              uiConfig:{
-                  "header": false,
-                  "controlBarElements": {
-                    "polls": false,
-                    "chat": false,
-                    "plugins": false,
-                    "participants": false,
-                  }
-              },
               onInit: (DyteMeetingHandler meeting) async {
                 if (widget.mode == Mode.customControls) {
                   //Here we are trying to change meeting's UI check this page for detailed documentation: https://docs.dyte.io/flutter/customize-meeting-ui and https://docs.dyte.io/flutter/advanced-usage

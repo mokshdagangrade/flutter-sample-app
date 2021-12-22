@@ -69,7 +69,7 @@ To get a local copy up and running follow these simple steps.
 1. Clone the repo
 
 ```sh
-https://github.com/dyte-in/flutter-sample-app
+git clone https://github.com/dyte-in/flutter-sample-app
 ```
 
 2. Install packages

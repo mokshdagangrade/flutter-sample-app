@@ -5,7 +5,8 @@ import 'package:dyte_flutter_sample_app/screens/create_meeting.dart';
 import 'package:dyte_flutter_sample_app/screens/join_meeting.dart';
 
 class BasePage extends StatefulWidget {
-    const BasePage({Key? key, required this.title, required this.mode}) : super(key: key);
+  const BasePage({Key? key, required this.title, required this.mode})
+      : super(key: key);
 
   final String title;
   final Mode mode;
@@ -25,10 +26,9 @@ class _BasePageState extends State<BasePage> {
   void initState() {
     super.initState();
     _widgetOptions = <Widget>[
-        CreateMeeting(mode: widget.mode),
-        JoinMeeting(mode: widget.mode),
+      CreateMeeting(mode: widget.mode),
+      JoinMeeting(mode: widget.mode),
     ];
-
   }
 
   void _onTappedItem(int index) {
@@ -51,12 +51,12 @@ class _BasePageState extends State<BasePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.video_call_sharp),
-            label: '',
+            label: 'Create Meeting',
             backgroundColor: Color(0xff2160fd),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.video_camera_front_sharp),
-            label: '',
+            label: 'Join Meeting',
             backgroundColor: Color(0xff2160fd),
           ),
         ],
@@ -66,6 +66,7 @@ class _BasePageState extends State<BasePage> {
         iconSize: 30,
         onTap: _onTappedItem,
         elevation: 5,
+        currentIndex: _selectedIndex,
       ),
     );
   }
